@@ -1,0 +1,62 @@
+let companies = [
+  { name:"SBI Bank", site:"https://retail.onlinesbi.sbi/personal/loanrepayment.htm", upi:"https://retail.onlinesbi.sbi/personal/loanrepayment.htm", balance:"https://retail.onlinesbi.sbi/personal/loanstatus.htm", type:"Home Loan", rate:"8.4%" },
+  { name:"HDFC Bank", site:"https://applyonline.hdfcbank.com/loanrepayment/", upi:"https://applyonline.hdfcbank.com/loanrepayment/", balance:"https://portal.hdfcbank.com/loan/account-login", type:"Personal Loan", rate:"10.5%" },
+  { name:"ICICI Bank", site:"https://www.icicibank.com/Personal-Banking/loans/emi-payment.page", upi:"https://www.icicibank.com/Personal-Banking/loans/emi-payment.page", balance:"https://loan.icicibank.com/loanstatus", type:"Car Loan", rate:"9.2%" },
+  { name:"Bajaj Finance", site:"https://www.bajajfinserv.in/emi-payment", upi:"https://www.bajajfinserv.in/emi-payment", balance:"https://customerportal.bajajfinserv.in", type:"Consumer Loan", rate:"12.5%" },
+  { name:"Tata Capital", site:"https://www.tatacapital.com/loan-repayment", upi:"https://www.tatacapital.com/loan-repayment", balance:"https://www.tatacapital.com/my-account", type:"Business Loan", rate:"11.0%" }
+];
+
+function showSection(id){
+  document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
+
+function loadCompanies(){
+  let select1=document.getElementById("loanCompany");
+  let select2=document.getElementById("loanCompanyBalance");
+  select1.innerHTML=""; select2.innerHTML="";
+  companies.forEach(c=>{
+    let opt=document.createElement("option");
+    opt.value=c.name; opt.textContent=c.name;
+    select1.appendChild(opt.cloneNode(true));
+    select2.appendChild(opt);
+  });
+}
+
+function loadRates(){
+  let table=document.getElementById("ratesTable");
+  table.innerHTML="";
+  companies.forEach(c=>{
+    table.innerHTML+=`<tr><td>${c.name}</td><td>${c.type}</td><td>${c.rate}</td></tr>`;
+  });
+}
+
+function calculateEMI(){
+  let P=+document.getElementById("loanAmount").value;
+  let R=+document.getElementById("interestRate").value;
+  let N=+document.getElementById("tenure").value;
+  if(!P||!R||!N){document.getElementById("emiResult").innerText="?? Enter all fields";return;}
+  let r=(R/12)/100;
+  let emi=(P*r*Math.pow(1+r,N))/(Math.pow(1+r,N)-1);
+  document.getElementById("emiResult").innerText=`?? EMI: ?${emi.toFixed(2)}`;
+}
+
+function setReminder(){
+  let d=document.getElementById("emiDate").value;
+  document.getElementById("reminderMsg").innerText=d?`? Reminder set for ${d}`:"?? Select date!";
+}
+
+function redirectPayment(){
+  let comp=companies.find(c=>c.name===document.getElementById("loanCompany").value);
+  if(comp) window.open(comp.site,"_blank");
+}
+function payViaUPI(){
+  let comp=companies.find(c=>c.name===document.getElementById("loanCompany").value);
+  if(comp) window.open(comp.upi,"_blank");
+}
+function checkBalance(){
+  let comp=companies.find(c=>c.name===document.getElementById("loanCompanyBalance").value);
+  if(comp) window.open(comp.balance,"_blank");
+}
+
+window.onload=()=>{ loadCompanies(); loadRates(); showSection('home'); };

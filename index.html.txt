@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EMI Finance App - Demo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>?? EMI & Finance App</h1>
+    <nav>
+      <button onclick="showSection('home')">?? Home</button>
+      <button onclick="showSection('emi')">?? EMI</button>
+      <button onclick="showSection('payment')">?? Payment</button>
+      <button onclick="showSection('balance')">?? Balance</button>
+      <button onclick="showSection('rates')">?? Rates</button>
+      <button onclick="showSection('reminder')">?? Reminder</button>
+      <button onclick="showSection('categories')">?? Categories</button>
+    </nav>
+  </header>
+
+  <section id="home" class="active"><h2>Welcome</h2></section>
+
+  <section id="emi">
+    <h2>?? EMI Calculator</h2>
+    <input type="number" id="loanAmount" placeholder="Loan Amount (?)">
+    <input type="number" id="interestRate" placeholder="Interest %">
+    <input type="number" id="tenure" placeholder="Tenure (months)">
+    <button onclick="calculateEMI()">Calculate EMI</button>
+    <p id="emiResult"></p>
+  </section>
+
+  <section id="payment">
+    <h2>?? EMI Payment</h2>
+    <select id="loanCompany"></select>
+    <input type="number" id="emiAmount" placeholder="EMI Amount (?)">
+    <button onclick="redirectPayment()">Pay Website</button>
+    <button onclick="payViaUPI()">Pay UPI</button>
+  </section>
+
+  <section id="balance">
+    <h2>?? Loan Balance</h2>
+    <select id="loanCompanyBalance"></select>
+    <button onclick="checkBalance()">Check Balance</button>
+  </section>
+
+  <section id="rates">
+    <h2>?? Interest Rates</h2>
+    <table><thead><tr><th>Company</th><th>Loan Type</th><th>Rate</th></tr></thead>
+    <tbody id="ratesTable"></tbody></table>
+  </section>
+
+  <section id="reminder">
+    <h2>?? Reminder</h2>
+    <input type="date" id="emiDate">
+    <button onclick="setReminder()">Set Reminder</button>
+    <p id="reminderMsg"></p>
+  </section>
+
+  <section id="categories">
+    <h2>?? Loan Categories</h2>
+    <div class="cards">
+      <div class="card">?? Home Loan</div>
+      <div class="card">?? Car Loan</div>
+      <div class="card">?? Personal Loan</div>
+      <div class="card">?? Education Loan</div>
+      <div class="card">?? Business Loan</div>
+      <div class="card">?? Credit Card Loan</div>
+      <div class="card">?? Gold Loan</div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
